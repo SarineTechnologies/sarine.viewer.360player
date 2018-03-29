@@ -1,0 +1,33 @@
+{
+  "name": "sarine-360player",
+  "version": "1.0.0",
+  "description": "- Upload mesh\r - Configure it in menu\r - Or via api in console",
+  "main": "main.js",
+  "scripts": {
+    "gulp": "./node_modules/.bin/gulp",
+    "webpack": "./node_modules/.bin/webpack",
+    "webpack-dev-server": "./node_modules/.bin/webpack-dev-server",
+    "build": "npm run webpack -- -p --color && npm run gulp",
+    "serve": "npm run build && npm run webpack-dev-server -- --color",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "gulp dev"
+  },
+  "author": "Roni Shoham",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "file-loader": "^0.11.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "run-sequence": "^1.2.2",
+    "webpack": "^3.5.5",
+    "gulp-batch": "^1.0.5",
+    "gulp-watch": "^5.0.0"
+  },
+  "engines": {
+    "node": "6.10.1"
+  }
+}
