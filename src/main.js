@@ -1,6 +1,6 @@
-import {imageplayer} from "./test"
+//import {imageplayer} from "./test"
 
-class Sarine360Player {
+class Sarine360Player extends Viewer {
 	constractor()
 	{
 	}
@@ -12,15 +12,25 @@ class Sarine360Player {
     }
 	
 	full_init () {
-		this.loadImages(true);
+		/*this.loadImages(true);
 		return new Promise((resolve, reject) => {
 			resolve();
+		});*/
+		debugger;
+		var assets = [
+			{element:'script',src: '/content/viewers/atomic/v1/js/sarine.plugin.imgplayer.min.js'},
+		];
+		
+		var self = this;
+
+		self.loadAssets(assets,() => {
+			var webP = new Image();
+			webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+			webP.onload = webP.onerror = function () {                        
+				return self.loadImages(webP.height == 2); // if true then WebP
+			};
 		});
-		/*var webP = new Image();
-		webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
-    	webP.onload = webP.onerror = function () {                        
-    	    return this.loadImages(webP.height == 2); // if true then WebP
-    	};*/
+
 	}
 		
 	play () {
@@ -32,6 +42,7 @@ class Sarine360Player {
 	}
 	
 	loadImages (isWebP) {
+		 return new Promise((resolve, reject) => { 
         debugger; 
 		var path = isWebP ? 'webp_' : 'jpeg_';
 		var format = isWebP ? '.jpg.webp': '.jpg';
@@ -56,6 +67,7 @@ class Sarine360Player {
 		// play on demand
 		// make sure that imgplay option autoPlay is false 
 		// $('#imageplayer').data('imgplay').play();    
+		 });
 	}
 }
 

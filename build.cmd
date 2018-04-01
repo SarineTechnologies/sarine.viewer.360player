@@ -1,1 +1,1 @@
-npm start build
+npm run webpack -- -p --color && npm run gulp

@@ -2,8 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'sarine.viewer.360player.polyfill.min': 'babel-polyfill',
-        'sarine.viewer.360player.bundle.min': path.join(__dirname, '/src/main.js')
+        'sarine.viewer.360player.polyfill.min': 'babel-polyfill'
     },
     output: {
         publicPath: 'dist/',
