@@ -1,1 +1,1 @@
-npm run webpack -- -p --color && npm run gulp
+npm run webpack -- -p --color && npm run gulp 
