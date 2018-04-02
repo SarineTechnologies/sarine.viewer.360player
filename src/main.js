@@ -1,8 +1,7 @@
-//import {imageplayer} from "./test"
-
 class Sarine360Player extends Viewer {
-	constractor()
+	constractor(options) 
 	{
+
 	}
 	
 	first_init () {
@@ -41,6 +40,9 @@ class Sarine360Player extends Viewer {
         return    
 	}
 	
+	convertElement (){
+		return
+	}
 	loadImages (isWebP) {
 		 return new Promise((resolve, reject) => { 
         debugger; 
