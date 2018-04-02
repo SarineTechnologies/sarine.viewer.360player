@@ -1,1 +1,1 @@
-npm run webpack -- -p --color && npm run gulp 
+grunt --gruntfile Gruntfile.js build
