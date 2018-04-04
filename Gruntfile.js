@@ -76,6 +76,15 @@ module.exports = function(grunt) {
             }
         },
         copy: {
+            dist: {
+                files: [{
+                    cwd: 'images',
+                    src: '**/*',
+                    dest: config.dist.imagesFolder,
+                    expand: true
+
+                }]
+            },
             bundle: {
                 dest: config.dist.root + '/<%= config.name %>.config',
                 src: [target + '<%= config.name %>.config']
@@ -107,6 +116,7 @@ module.exports = function(grunt) {
         'clean:postbuild',
         'copyVersion',
         'copy:bundle',
+        'copy:dist',
         'clean:bundlecoffee' //remove bundle.coffe file - not necessary
     ]);
 
@@ -134,7 +144,8 @@ module.exports = function(grunt) {
             grunt.log.writeln("dist is github folder");
 
             return {
-                root: 'app/dist/'
+                root: 'app/dist/',
+                imagesFolder : 'app/dist/'
             }
         }
         else
@@ -142,7 +153,8 @@ module.exports = function(grunt) {
             grunt.log.writeln("dist is local");
 
             return {
-                root: '../../../dist/content/viewers/atomic/v1/js/'
+                root: '../../../dist/content/viewers/atomic/v1/js/',
+                imagesFolder : '../../../dist/content/viewers/atomic/v1/assets/images/<%= config.name %>/'
             }
         }
     }

@@ -1,10 +1,17 @@
 
 class Sarine360Player extends Viewer
 	
-	constructor: (options) -> 		
-		super(options)	
+	baseUrl = ""
+	baseImagesUrl = ""
+	imageTypes = {girdle : 1 , pavilion : 2}
+	supportedWidths = {small: 152 , medium: 252 , large: 452 }
+	filesConfiguration = { webP: {path : 'webp_' , format: '.jpg.webp'} , jpg: {path: 'jpg_' , format: '.jpg'}} #'_webp'  #'_jpg'
 
-		baseUrl = options.baseUrl + "atomic/v1/js/"
+	constructor: (options) -> 		
+		super(options)
+
+		baseUrl = options.baseUrl + 'atomic/v1/js/'
+		baseImagesUrl = options.baseUrl + 'atomic/v1/assets/images/sarine.viewer.360player/'
 	convertElement : () ->
 		@element		
 
@@ -12,35 +19,26 @@ class Sarine360Player extends Viewer
 		defer = $.Deferred()
 		_t = @
 		# load plugin assets
+		#TO DO - decide where from take the plugin and his css
 		assets = [
-			{element:'script',src: 'http://localhost:3000/content/viewers/atomic/v1/js/sarine.plugin.imgplayer.min.js'}
+			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer.min.js'},
+			{element:'link',src: baseUrl + 'sarine.plugin.imgplayer.min.css'}
 		]
 
 		_t.loadAssets(assets,() ->
-			path = 'webp_'
-			format = '.jpg.webp'
-			url = 'https://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/' + path + '318_80/Image_{num}' + format
-
-			$('#360Player')
-				.imgplay({
-					totalImages: 318,
-					imageName: 'Image_{num}' + format,                            
-					urlDir: url,
-					rate: 30,
-					height: 225,
-					width: 250,
-					autoPlay: true 
-				})
-				.on("play", (event, plugin) ->
+			webP = new Image();
+			webP.onload = ->
+				_t.loadImages(_t , webP.height == 2 , () ->
+					defer.resolve(_t)
 				)
-				.on("pause", (event, plugin) ->
+			webP.onerror = ->
+				_t.loadImages(_t , webP.height == 2 , () ->
+					defer.resolve(_t)
 				)
-				.on("stop", (event, plugin) ->                          
-				)  
+			webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
 		)
 					
 		#_t.loadNoStoneImage(_t)
-		defer.resolve(_t)
 
 		defer
 
@@ -61,6 +59,81 @@ class Sarine360Player extends Viewer
 			_t.element.append(canvas)
 		
 		return
+	loadImages:(_t,isWebP , onPluginLoadEnd)->
+		#take move - pavilian/girdle
+		configArray = window.configuration.experiences.filter((i)-> return i.atom == '360Player')
+		playerConfig = null
+		if (configArray.length != 0)
+			playerConfig = configArray[0]
+
+		#decide on image size
+		containerWidth = window.innerWidth || 0
+		console.log('view port width -------------------------------------- ' , containerWidth)
+		playerWidthHeight = 0
+		if (containerWidth <= supportedWidths.small)
+			playerWidthHeight = supportedWidths.small
+		else if (supportedWidths.small < containerWidth < supportedWidths.large)
+			playerWidthHeight = supportedWidths.medium
+		else
+			playerWidthHeight = supportedWidths.large
+
+		#auto play - take from configuration
+		isAutoPlay = true
+		if(playerConfig.autoPlay != undefined)
+			isAutoPlay = playerConfig.autoPlay
+
+		$curElement = $('#360Player')
+		path = null
+		if (isWebP == true)
+			path = filesConfiguration.webP.path
+			format = filesConfiguration.webP.format
+		else
+			path = filesConfiguration.jpg.path
+			format = filesConfiguration.jpg.format
+
+		domainUrl = null
+		if (playerConfig.type == imageTypes.pavilion)
+			domainUrl = window.stones[0].viewers.loupePavilionViewImage
+		if (playerConfig.type == imageTypes.girdle)
+			domainUrl = window.stones[0].viewers.loupeGirdleViewImage
+		#add for testing
+		domainUrl = 'http://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/'
+		# remove for testing
+		#if (domainUrl == null)
+		#	_t.loadNoStoneImage(_t)
+		#	onPluginLoadEnd();
+		#	return
+
+		# TO DO - take domainUrl + playerWidthHeight + path
+		url = domainUrl + path + '318_80/Image_{num}' + format
+		totalImages = 0
+		if (playerConfig.numberOfImages != undefined)
+			totalImages = playerConfig.numberOfImages	
+		$.ajax	domainUrl + 'viewer.json',
+			type: 'GET'
+			dataType: 'json'
+			success: (data, textStatus, jqXHR) ->
+				totalImages = data.images
+				if (playerConfig.numberOfImages != undefined && playerConfig.numberOfImages < totalImages)
+					totalImages = playerConfig.numberOfImages
+				$curElement.imgplay({
+						totalImages: totalImages,
+						imageName: 'Image_{num}' + format,                            
+						urlDir: url,
+						rate: 30,
+						height: playerWidthHeight,
+						width: playerWidthHeight,
+						autoPlay: isAutoPlay 
+				})
+				$curElement.on("play", (event, plugin) ->
+				)
+				$curElement.on("pause", (event, plugin) ->
+				)
+				$curElement.on("stop", (event, plugin) ->                          
+				)
+				$curElement.append('<img id="360Image" src="' + baseImagesUrl + 'interactive.png" style="position: absolute; bottom: 0;" />')
+				onPluginLoadEnd();
+				return
     
 
 
