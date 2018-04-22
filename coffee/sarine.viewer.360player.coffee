@@ -12,7 +12,7 @@ class Sarine360Player extends Viewer
 	constructor: (options) -> 		
 		super(options)
 
-		baseUrl = options.baseUrl + 'atomic/v1/js/'
+		baseUrl = options.baseUrl + 'atomic/v1/assets/'
 		baseImagesUrl = options.baseUrl + 'atomic/v1/assets/images/sarine.viewer.360player/'
 		atomName = options.element[0].classList[1]
 		qs = new queryString()
@@ -67,10 +67,11 @@ class Sarine360Player extends Viewer
 		return
 	loadImages:(_t,isWebP , onPluginLoadEnd)->
 		#take move - pavilian/girdle
-		configArray = window.configuration.experiences.filter((i)-> return i.atom == atomName)
 		playerConfig = null
-		if (configArray.length != 0)
-			playerConfig = configArray[0]
+		if(window.configuration.experiences != undefined)
+			configArray = window.configuration.experiences.filter((i)-> return i.atom == atomName)
+			if (configArray.length != 0)
+				playerConfig = configArray[0]
 
 		$curElement = $('.viewer.' + atomName)
 		#decide on image size
@@ -86,8 +87,9 @@ class Sarine360Player extends Viewer
 
 		#auto play - take from configuration
 		isAutoPlay = true
-		if(playerConfig.autoPlay != undefined)
-			isAutoPlay = playerConfig.autoPlay
+		if(playerConfig != null)
+			if(playerConfig.autoPlay != undefined)
+				isAutoPlay = playerConfig.autoPlay
 
 		path = null
 		if (isWebP == true)
