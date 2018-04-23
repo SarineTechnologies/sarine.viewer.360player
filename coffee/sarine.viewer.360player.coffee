@@ -6,7 +6,9 @@ class Sarine360Player extends Viewer
 	atomName = ""
 	imageTypes = {girdle : "girdle" , pavilion : "pavilion"}
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
-	filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
+	#filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
+	# remove ------------------- until we will have webp images
+	filesConfiguration = { webP: {path : '_JPG' , format: '.jpg'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
 	isLocal = ""
 
 	constructor: (options) -> 		
@@ -113,19 +115,18 @@ class Sarine360Player extends Viewer
 		#add for testing
 		#domainUrl = 'https://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/convention/Pavilion/' #'http://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/'
 		# remove for testing
-		#if (domainUrl == null)
-		#	_t.loadNoStoneImage(_t)
-		#	onPluginLoadEnd();
-		#	return
+		if (domainUrl == null)
+			_t.loadNoStoneImage(_t)
+			onPluginLoadEnd();
+			return
 
-		# TO DO - take domainUrl + playerWidthHeight + path
 		url = domainUrl + playerWidthHeight + path + '/img{num}' + format
 		totalImages = 0	
 		$.ajax	domainUrl + playerWidthHeight + path + '/viewer.json',
 			type: 'GET'
 			dataType: 'json'
 			success: (data, textStatus, jqXHR) ->
-				totalImages = data.images
+				totalImages = data.TotalImageCount
 				$curElement.imgplay({
 						totalImages: totalImages,
 						imageName: 'img{num}' + format,                            
