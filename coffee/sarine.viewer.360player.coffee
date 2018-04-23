@@ -6,7 +6,7 @@ class Sarine360Player extends Viewer
 	atomName = ""
 	imageTypes = {girdle : "girdle" , pavilion : "pavilion"}
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
-	filesConfiguration = { webP: {path : '_webp' , format: '.webp'} , jpg: {path: '_jpg' , format: '.jpg'}} #_WEBP , _JPG
+	filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
 	isLocal = ""
 
 	constructor: (options) -> 		
@@ -76,7 +76,7 @@ class Sarine360Player extends Viewer
 		$curElement = $('.viewer.' + atomName)
 		#decide on image size
 		containerWidth = $curElement.width()
-		console.log('container width -------------------------------------- ' , containerWidth)
+		#console.log('container width -------------------------------------- ' , containerWidth)
 		playerWidthHeight = 0
 		if (containerWidth <= supportedWidths.small)
 			playerWidthHeight = supportedWidths.small
@@ -111,7 +111,7 @@ class Sarine360Player extends Viewer
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImage
 		#add for testing
-		domainUrl = 'https://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/convention/Pavilion/' #'http://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/'
+		#domainUrl = 'https://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/convention/Pavilion/' #'http://d3oayecwxm3wp6.cloudfront.net/qa3/demo/new_loupe_poc/'
 		# remove for testing
 		#if (domainUrl == null)
 		#	_t.loadNoStoneImage(_t)
