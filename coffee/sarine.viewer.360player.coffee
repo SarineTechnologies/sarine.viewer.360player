@@ -142,7 +142,7 @@ class Sarine360Player extends Viewer
 				)
 				$curElement.on("stop", (event, plugin) ->                          
 				)
-				$curElement.append('<img id="360Image" src="' + baseImagesUrl + 'interactive.png" style="position: absolute; bottom: 0; left: 0;" />')
+				$curElement.append('<img id="360Image" src="' + baseImagesUrl + 'interactive.png" style="position: absolute; bottom: 0; left: 0; z-index: 1;" />')
 				onPluginLoadEnd();
 				return
     
