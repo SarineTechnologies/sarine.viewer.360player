@@ -122,7 +122,7 @@ class Sarine360Player extends Viewer
 
 		url = domainUrl + playerWidthHeight + path + '/img{num}' + format
 		totalImages = 0	
-		$.ajax	domainUrl + playerWidthHeight + path + '/viewer.json',
+		$.ajax	domainUrl + playerWidthHeight + path + '/ImpressionShootingParameters.json',
 			type: 'GET'
 			dataType: 'json'
 			success: (data, textStatus, jqXHR) ->
