@@ -15,7 +15,7 @@ class Sarine360Player extends Viewer
 		super(options)
 
 		baseUrl = options.baseUrl + 'atomic/v1/assets/'
-		baseImagesUrl = options.baseUrl + 'atomic/v1/assets/images/sarine.viewer.360player/'
+		baseImagesUrl = options.baseUrl + 'atomic/v1/js/images/sarine.viewer.360player/'
 		atomName = options.element[0].classList[1]
 		qs = new queryString()
 		isLocal = qs.getValue("isLocal") == "true"

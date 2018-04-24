@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 
             return {
                 root: 'app/dist/',
-                imagesFolder : 'app/dist/'
+                imagesFolder : 'app/dist/images/<%= config.name %>/'
             }
         }
         else
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
 
             return {
                 root: '../../../dist/content/viewers/atomic/v1/js/',
-                imagesFolder : '../../../dist/content/viewers/atomic/v1/assets/images/<%= config.name %>/'
+                imagesFolder : '../../../dist/content/viewers/atomic/v1/js/<%= config.name %>/'
             }
         }
     }
