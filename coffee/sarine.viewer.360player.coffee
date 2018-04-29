@@ -6,9 +6,7 @@ class Sarine360Player extends Viewer
 	atomName = ""
 	imageTypes = {girdle : "girdle" , pavilion : "pavilion"}
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
-	#filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
-	# remove ------------------- until we will have webp images
-	filesConfiguration = { webP: {path : '_JPG' , format: '.jpg'} , jpg: {path: '_JPG' , format: '.jpg'}} #_WEBP , _JPG
+	filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}}
 	isLocal = ""
 
 	constructor: (options) -> 		
@@ -27,7 +25,6 @@ class Sarine360Player extends Viewer
 		defer = $.Deferred()
 		_t = @
 		# load plugin assets
-		#TO DO - decide where from take the plugin and his css
 		assets = [
 			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer.min.js'},
 			{element:'link',src: baseUrl + 'sarine.plugin.imgplayer.min.css'}
