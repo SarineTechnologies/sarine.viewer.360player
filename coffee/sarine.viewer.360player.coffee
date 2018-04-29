@@ -6,7 +6,7 @@ class Sarine360Player extends Viewer
 	atomName = ""
 	imageTypes = {girdle : "girdle" , pavilion : "pavilion"}
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
-	filesConfiguration = { webP: {path : '_WEBP' , format: '.webp'} , jpg: {path: '_JPG' , format: '.jpg'}}
+	filesConfiguration = { webP: {path : '_webp' , format: '.webp'} , jpg: {path: '_jpg' , format: '.jpg'}}
 	isLocal = ""
 
 	constructor: (options) -> 		
