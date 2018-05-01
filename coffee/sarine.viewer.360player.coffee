@@ -99,11 +99,14 @@ class Sarine360Player extends Viewer
 			format = filesConfiguration.jpg.format
 
 		domainUrl = null
+		domainFileUrl = null
 		if(isLocal)
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
 				domainUrl = window.stones[0].viewers.loupePavilionViewImageLocal
+				domainFileUrl = window.stones[0].viewers.loupePavilionViewFileLocal
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImageLocal
+				domainFileUrl = window.stones[0].viewers.loupeGirdleViewFileLocal
 		else
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
 				domainUrl = window.stones[0].viewers.loupePavilionViewImage
@@ -116,10 +119,37 @@ class Sarine360Player extends Viewer
 			_t.loadNoStoneImage(_t)
 			onPluginLoadEnd();
 			return
-
-		url = domainUrl + playerWidthHeight + path + '/img{num}' + format
 		totalImages = 0	
-		$.ajax	domainUrl + playerWidthHeight + path + '/ImpressionShootingParameters.json',
+		
+		if(isLocal)
+			imageNameLocal = 'img{num}.jpg'
+			url = domainUrl + imageNameLocal
+			$.ajax	domainFileUrl + 'ImpressionShootingParameters.json',
+			type: 'GET'
+			dataType: 'json'
+			success: (data, textStatus, jqXHR) ->
+				totalImages = data.TotalImageCount
+				$curElement.imgplay({
+						totalImages: totalImages,
+						imageName: imageNameLocal,                            
+						urlDir: url,
+						rate: 30,
+						height: playerWidthHeight,
+						width: playerWidthHeight,
+						autoPlay: isAutoPlay 
+				})
+				$curElement.on("play", (event, plugin) ->
+				)
+				$curElement.on("pause", (event, plugin) ->
+				)
+				$curElement.on("stop", (event, plugin) ->                          
+				)
+				$curElement.append('<img id="360Image" src="' + baseImagesUrl + 'interactive.png" style="position: absolute; bottom: 0; left: 0; z-index: 1;" />')
+				onPluginLoadEnd();
+				return
+		else
+			url = domainUrl + playerWidthHeight + path + '/img{num}' + format
+			$.ajax	domainUrl + playerWidthHeight + path + '/ImpressionShootingParameters.json',
 			type: 'GET'
 			dataType: 'json'
 			success: (data, textStatus, jqXHR) ->
