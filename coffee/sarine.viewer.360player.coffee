@@ -124,7 +124,7 @@ class Sarine360Player extends Viewer
 		if(isLocal)
 			imageNameLocal = 'img{num}.jpg'
 			url = domainUrl + imageNameLocal
-			$.ajax	domainFileUrl + 'ImpressionShootingParameters.json',
+			$.ajax	domainFileUrl + 'ImpressionShootingParameters.json/%application/json%',
 			type: 'GET'
 			dataType: 'json'
 			success: (data, textStatus, jqXHR) ->
