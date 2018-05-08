@@ -23,13 +23,18 @@ class Sarine360Player extends Viewer
 
 	first_init : ()->
 		defer = $.Deferred()
+		defer.resolve(@)
+		defer
+
+	full_init : ()-> 
+		defer = $.Deferred()
 		_t = @
 		# load plugin assets
 		assets = [
 			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer.min.js'},
 			{element:'link',src: baseUrl + 'sarine.plugin.imgplayer.min.css'}
 		]
-
+		
 		_t.loadAssets(assets,() ->
 			webP = new Image();
 			webP.onload = ->
@@ -45,14 +50,6 @@ class Sarine360Player extends Viewer
 					
 		#_t.loadNoStoneImage(_t)
 
-		defer
-
-	full_init : ()-> 
-		defer = $.Deferred()
-		if(@element.find('.no_stone').length > 0)				
-			# notify the parent there are no assets - for hiding the buttons navigation for example
-			@element.trigger('noStone')
-		defer.resolve(@)
 		defer
 	play : () -> return		
 	stop : () -> return
