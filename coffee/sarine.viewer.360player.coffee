@@ -130,7 +130,6 @@ class Sarine360Player extends Viewer
 						totalImages: totalImages,
 						imageName: imageNameLocal,                            
 						urlDir: url,
-						rate: 30,
 						height: playerWidthHeight,
 						width: playerWidthHeight,
 						autoPlay: isAutoPlay 
