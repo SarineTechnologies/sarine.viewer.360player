@@ -151,13 +151,14 @@ class Sarine360Player extends Viewer
 			success: (data, textStatus, jqXHR) ->
 				totalImages = data.TotalImageCount
 				$curElement.imgplay({
-						totalImages: totalImages,
-						imageName: 'img{num}' + format,                            
-						urlDir: url,
-						rate: 30,
-						height: playerWidthHeight,
-						width: playerWidthHeight,
-						autoPlay: isAutoPlay 
+					totalImages: totalImages,
+					imageName: 'img{num}' + format,                            
+					urlDir: url,
+					rate: 30,
+					height: playerWidthHeight,
+					width: playerWidthHeight,
+					autoPlay: isAutoPlay,
+					sharding: if isLocal then false else true  
 				})
 				$curElement.on("play", (event, plugin) ->
 				)
@@ -169,8 +170,6 @@ class Sarine360Player extends Viewer
 				onPluginLoadEnd();
 				return
     
-
-
 @Sarine360Player = Sarine360Player
 		
 ### Query string hepler ###
