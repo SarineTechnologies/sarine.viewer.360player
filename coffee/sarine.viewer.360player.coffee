@@ -6,18 +6,23 @@ class Sarine360Player extends Viewer
 	atomName = ""
 	imageTypes = {girdle : "girdle" , pavilion : "pavilion"}
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
-	filesConfiguration = { webP: {path : '_webp' , format: '.webp'} , jpg: {path: '_jpg' , format: '.jpg'}}
+	filesConfiguration = { webP: {path : '_webp' , format: '.webp'} , fallback: {path: '_jpg' , format: '.jpg'}}
 	isLocal = ""
 
 	constructor: (options) -> 		
 		super(options)
+		atomName = options.element[0].classList[1]
 
+		atomConfig = configuration.experiences.filter((exp)-> exp.atom == atomName)[0]
+		
 		baseUrl = options.baseUrl + 'atomic/v1/assets/'
 		baseImagesUrl = options.baseUrl + 'atomic/v1/js/images/sarine.viewer.360player/'
-		atomName = options.element[0].classList[1]
+		supportedWidths = if atomConfig.widths then atomConfig.widths else supportedWidths; 
+		filesConfiguration = if atomConfig.files then atomConfig.files else filesConfiguration; 
 		qs = new queryString()
 		isLocal = qs.getValue("isLocal") == "true"
-
+		
+		
 	convertElement : () ->
 		@element		
 
@@ -92,8 +97,8 @@ class Sarine360Player extends Viewer
 			path = filesConfiguration.webP.path
 			format = filesConfiguration.webP.format
 		else
-			path = filesConfiguration.jpg.path
-			format = filesConfiguration.jpg.format
+			path = filesConfiguration.fallback.path
+			format = filesConfiguration.fallback.format
 
 		domainUrl = null
 		domainFileUrl = null
