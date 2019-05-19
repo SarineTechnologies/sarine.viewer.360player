@@ -36,7 +36,7 @@ class Sarine360Player extends Viewer
 		_t = @
 		# load plugin assets
 		assets = [
-			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer.min.js'},
+			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer' + (if parent.location.hash.indexOf("debug") > 0 then ".js" else ".min.js")},
 			{element:'link',src: baseUrl + 'sarine.plugin.imgplayer.min.css'}
 		]
 		
