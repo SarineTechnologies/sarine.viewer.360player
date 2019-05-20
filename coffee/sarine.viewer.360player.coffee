@@ -74,9 +74,12 @@ class Sarine360Player extends Viewer
 			if (configArray.length != 0)
 				playerConfig = configArray[0]
 
-		$curElement = $('.viewer.' + atomName)
+		$curElement = $('.viewer.' + atomName) 
 		#decide on image size
 		containerWidth = $curElement.width()
+		if (containerWidth == 0)
+			containerWidth = Math.min($(window).height(), $(window).width())
+
 		#console.log('container width -------------------------------------- ' , containerWidth)
 		playerWidthHeight = 0
 		if (containerWidth <= supportedWidths.small)
