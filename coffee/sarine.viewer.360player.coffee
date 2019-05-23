@@ -76,15 +76,15 @@ class Sarine360Player extends Viewer
 
 		$curElement = $('.viewer.' + atomName) 
 		#decide on image size
-		containerWidth = $curElement.width()
-		if (containerWidth == 0)
-			containerWidth = Math.min($(window).height(), $(window).width())
+		containerSize = $curElement.width()
+		if (containerSize == 0)
+			containerSize = Math.min($(window).height(), $(window).width())
 
-		#console.log('container width -------------------------------------- ' , containerWidth)
+		#console.log('container width -------------------------------------- ' , containerSize)
 		playerWidthHeight = 0
-		if (containerWidth <= supportedWidths.small)
+		if (containerSize <= supportedWidths.small)
 			playerWidthHeight = supportedWidths.small
-		else if (supportedWidths.small < containerWidth < supportedWidths.large)
+		else if (supportedWidths.small < containerSize < supportedWidths.large)
 			playerWidthHeight = supportedWidths.medium
 		else
 			playerWidthHeight = supportedWidths.large
@@ -138,8 +138,8 @@ class Sarine360Player extends Viewer
 						totalImages: totalImages,
 						imageName: imageNameLocal,                            
 						urlDir: url,
-						height: playerWidthHeight,
-						width: playerWidthHeight,
+						height: containerSize,
+						width: containerSize,
 						autoPlay: isAutoPlay 
 				})
 				$curElement.on("play", (event, plugin) ->
@@ -162,8 +162,8 @@ class Sarine360Player extends Viewer
 					totalImages: totalImages,
 					imageName: 'img{num}' + format,                            
 					urlDir: url,
-					height: playerWidthHeight,
-					width: playerWidthHeight,
+					height: containerSize,
+					width: containerSize,
 					autoPlay: isAutoPlay,
 					sharding: if isLocal then false else true  
 				})
