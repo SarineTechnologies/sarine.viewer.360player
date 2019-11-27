@@ -35,8 +35,16 @@ class Sarine360Player extends Viewer
 		defer = $.Deferred()
 		_t = @
 		# load plugin assets
+
+		ext = '.min.js'
+		try
+			if(parent.location.hash.indexOf('debug') > 0)
+				ext = '.js'
+		catch e
+			console.warn 'Unminified sarine.plugin.imgplayer script not allowed from accessing a cross-origin frame', e
+
 		assets = [
-			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer' + (if parent.location.hash.indexOf("debug") > 0 then ".js" else ".min.js")},
+			{element:'script',src: baseUrl + 'sarine.plugin.imgplayer' + ext},
 			{element:'link',src: baseUrl + 'sarine.plugin.imgplayer.min.css'}
 		]
 		
