@@ -8,6 +8,7 @@ class Sarine360Player extends Viewer
 	supportedWidths = {small: 152 , medium: 252 , large: 452 }
 	filesConfiguration = { webP: {path : '_webp' , format: '.webp'} , fallback: {path: '_jpg' , format: '.jpg'}}
 	isLocal = ""
+	transparentConfiguration = false 
 
 	constructor: (options) -> 		
 		super(options)
@@ -19,6 +20,13 @@ class Sarine360Player extends Viewer
 		baseImagesUrl = options.baseUrl + 'atomic/v1/js/images/sarine.viewer.360player/'
 		supportedWidths = if atomConfig.widths then atomConfig.widths else supportedWidths; 
 		filesConfiguration = if atomConfig.files then atomConfig.files else filesConfiguration; 
+		
+		# check atom's extraData.transparent (eg. in Mars, transparency is true by default)
+		transparentConfiguration = if options.extraData && options.extraData.transparent then options.extraData.transparent else false; 
+		
+		# check atom's configuration transparent property (in Widget, transparency is false by default, but can be overridden)
+		transparentConfiguration = if atomConfig.transparent then atomConfig.transparent else transparentConfiguration; 
+		
 		qs = new queryString()
 		isLocal = qs.getValue("isLocal") == "true"
 		
@@ -115,14 +123,16 @@ class Sarine360Player extends Viewer
 		domainFileUrl = null
 		if(isLocal)
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
-				domainUrl = window.stones[0].viewers.loupePavilionViewImageLocal
-				domainFileUrl = window.stones[0].viewers.loupePavilionViewFileLocal
+				domainUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewImageLocal else window.stones[0].viewers.loupePavilionViewImageLocal
+				domainFileUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewFileLocal else window.stones[0].viewers.loupePavilionViewFileLocal
+			
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImageLocal
 				domainFileUrl = window.stones[0].viewers.loupeGirdleViewFileLocal
 		else
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
-				domainUrl = window.stones[0].viewers.loupePavilionViewImage
+				domainUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewImage else window.stones[0].viewers.loupePavilionViewImage
+			
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImage
 		#add for testing
