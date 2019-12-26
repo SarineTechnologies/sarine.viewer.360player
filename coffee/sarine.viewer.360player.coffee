@@ -25,7 +25,7 @@ class Sarine360Player extends Viewer
 		transparentConfiguration = if options.extraData && options.extraData.transparent then options.extraData.transparent else false; 
 		
 		# check atom's configuration transparent property (in Widget, transparency is false by default, but can be overridden)
-		transparentConfiguration = if atomConfig.transparent then atomConfig.transparent else transparentConfiguration; 
+		transparentConfiguration = if typeof(atomConfig.transparent) != 'undefined' then atomConfig.transparent else transparentConfiguration; 
 		
 		qs = new queryString()
 		isLocal = qs.getValue("isLocal") == "true"
