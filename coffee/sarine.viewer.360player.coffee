@@ -123,15 +123,15 @@ class Sarine360Player extends Viewer
 		domainFileUrl = null
 		if(isLocal)
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
-				domainUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewImageLocal else window.stones[0].viewers.loupePavilionViewImageLocal
-				domainFileUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewFileLocal else window.stones[0].viewers.loupePavilionViewFileLocal
+				domainUrl = if transparentConfiguration && window.stones[0].viewers.loupePavilionTransparencyViewImageLocal then window.stones[0].viewers.loupePavilionTransparencyViewImageLocal else window.stones[0].viewers.loupePavilionViewImageLocal
+				domainFileUrl = if transparentConfiguration && window.stones[0].viewers.loupePavilionTransparencyViewFileLocal then window.stones[0].viewers.loupePavilionTransparencyViewFileLocal else window.stones[0].viewers.loupePavilionViewFileLocal
 			
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImageLocal
 				domainFileUrl = window.stones[0].viewers.loupeGirdleViewFileLocal
 		else
 			if (atomName.toLowerCase().indexOf(imageTypes.pavilion) != -1)
-				domainUrl = if transparentConfiguration then window.stones[0].viewers.loupePavilionTransparencyViewImage else window.stones[0].viewers.loupePavilionViewImage
+				domainUrl = if transparentConfiguration && window.stones[0].viewers.loupePavilionTransparencyViewImage then window.stones[0].viewers.loupePavilionTransparencyViewImage else window.stones[0].viewers.loupePavilionViewImage
 			
 			if (atomName.toLowerCase().indexOf(imageTypes.girdle) != -1)
 				domainUrl = window.stones[0].viewers.loupeGirdleViewImage
